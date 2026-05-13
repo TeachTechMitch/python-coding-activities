@@ -3,7 +3,7 @@
 // =========================================================
 const GITHUB_USERNAME = "YOUR_GITHUB_USERNAME";   // e.g. "mrsmith"
 const GITHUB_REPO     = "python-coding-activities";
-const GITHUB_TOKEN    = "YOUR_PERSONAL_ACCESS_TOKEN";
+const GITHUB_TOKEN    = "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";
 // =========================================================
 
 // ── State ──────────────────────────────────────────────
