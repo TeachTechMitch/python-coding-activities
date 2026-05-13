@@ -1,0 +1,198 @@
+{
+  "lessonTitle": "Python Functions — From Zero to Hero",
+  "lessonSubtitle": "Year 9–10 Digital Technology",
+  "units": [
+    {
+      "id": "unit1",
+      "title": "What is a Function?",
+      "lessonContent": {
+        "heading": "📦 What is a Function?",
+        "body": "A <strong>function</strong> is a reusable block of code that performs a specific task. Instead of writing the same code over and over, you define it once and <em>call</em> it whenever you need it.<br><br>Think of a function like a <strong>recipe</strong>: you write the steps once, give it a name, and anyone can follow it by just saying its name.<br><br><strong>Why use functions?</strong><ul><li>🔁 Avoid repeating yourself (DRY principle)</li><li>📖 Make code easier to read</li><li>🐛 Easier to find and fix bugs</li><li>♻️ Reuse code across projects</li></ul>",
+        "codeExample": "# Without a function — repetitive!\nprint(\"Hello, Alice!\")\nprint(\"Hello, Bob!\")\nprint(\"Hello, Charlie!\")\n\n# With a function — clean and reusable!\ndef greet(name):\n    print(\"Hello, \" + name + \"!\")\n\ngreet(\"Alice\")\ngreet(\"Bob\")\ngreet(\"Charlie\")"
+      },
+      "activities": [
+        {
+          "type": "multiple_choice",
+          "id": "mc1a",
+          "question": "What is the main purpose of a function in Python?",
+          "options": [
+            "To make your code longer",
+            "To reuse a block of code without repeating it",
+            "To slow down program execution",
+            "To store data in a variable"
+          ],
+          "answer": "To reuse a block of code without repeating it",
+          "explanation": "Functions let you define code once and call it many times — avoiding repetition and making programs cleaner."
+        },
+        {
+          "type": "multiple_choice",
+          "id": "mc1b",
+          "question": "What keyword do you use to define a function in Python?",
+          "options": ["function", "fun", "define", "def"],
+          "answer": "def",
+          "explanation": "In Python, 'def' is the keyword that starts every function definition. Example: def my_function():"
+        },
+        {
+          "type": "fill_blank",
+          "id": "fb1a",
+          "instruction": "Complete the code to define a function called <code>say_hello</code> that prints 'Hello!'",
+          "code_prefix": "",
+          "code_suffix": "say_hello():\n    print(\"Hello!\")",
+          "answer": "def ",
+          "hint": "Use the keyword that defines a function, followed by a space."
+        },
+        {
+          "type": "code_runner",
+          "id": "cr1a",
+          "instruction": "Write a function called <code>welcome</code> that prints the message <code>Welcome to Python!</code> — then call it.",
+          "starter_code": "# Define your function here\n\n\n# Call your function\n",
+          "test_cases": [
+            { "inputs": [], "expected_output": "Welcome to Python!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unit2",
+      "title": "Parameters & Arguments",
+      "lessonContent": {
+        "heading": "🎯 Parameters & Arguments",
+        "body": "Functions become much more powerful when you pass them <strong>data to work with</strong>.<br><br><strong>Parameter</strong>: a variable listed inside the function definition (the placeholder).<br><strong>Argument</strong>: the actual value you pass when calling the function.<br><br>You can have <em>multiple parameters</em> separated by commas, and you can give parameters <strong>default values</strong> so they work even if nothing is passed.",
+        "codeExample": "# One parameter\ndef greet(name):\n    print(\"Hello, \" + name + \"!\")\n\ngreet(\"Alex\")   # 'Alex' is the argument\n\n# Multiple parameters\ndef add(a, b):\n    print(a + b)\n\nadd(3, 4)   # prints 7\n\n# Default parameter value\ndef greet(name=\"stranger\"):\n    print(\"Hello, \" + name + \"!\")\n\ngreet()          # Hello, stranger!\ngreet(\"Jordan\")  # Hello, Jordan!"
+      },
+      "activities": [
+        {
+          "type": "multiple_choice",
+          "id": "mc2a",
+          "question": "In the function call greet(\"Alice\"), what is \"Alice\"?",
+          "options": ["A parameter", "An argument", "A variable", "A keyword"],
+          "answer": "An argument",
+          "explanation": "Arguments are the actual values you pass into a function when calling it. Parameters are the placeholders defined in the function signature."
+        },
+        {
+          "type": "fill_blank",
+          "id": "fb2a",
+          "instruction": "Complete the function so it takes two parameters <code>a</code> and <code>b</code> and prints their sum.",
+          "code_prefix": "def add_numbers(",
+          "code_suffix": "):\n    print(a + b)\n\nadd_numbers(5, 3)",
+          "answer": "a, b",
+          "hint": "List both parameter names separated by a comma."
+        },
+        {
+          "type": "fill_blank",
+          "id": "fb2b",
+          "instruction": "Complete the function call to pass the argument <code>\"Sam\"</code> to the greet function.",
+          "code_prefix": "def greet(name):\n    print(\"Hi, \" + name + \"!\")\n\ngreet(",
+          "code_suffix": ")",
+          "answer": "\"Sam\"",
+          "hint": "Pass the string Sam as the argument — don't forget the quotes!"
+        },
+        {
+          "type": "code_runner",
+          "id": "cr2a",
+          "instruction": "Write a function called <code>multiply</code> that takes two numbers as parameters and <strong>prints</strong> their product. Then call it with 6 and 7.",
+          "starter_code": "# Define multiply function\n\n\n# Call it with 6 and 7\n",
+          "test_cases": [
+            { "inputs": [], "expected_output": "42" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unit3",
+      "title": "Return Values",
+      "lessonContent": {
+        "heading": "↩️ Return Values",
+        "body": "So far our functions just <em>print</em> things. But what if you want a function to <strong>give you a value back</strong> to use elsewhere in your code?<br><br>That's what <strong>return</strong> does. A function with a return statement sends a value back to wherever it was called from.<br><br>This is incredibly useful — returned values can be stored in variables, used in calculations, or passed to other functions.",
+        "codeExample": "# print() vs return — the key difference\n\n# This just displays — you can't use the result\ndef add_print(a, b):\n    print(a + b)\n\n# This returns the result — you CAN use it!\ndef add_return(a, b):\n    return a + b\n\nresult = add_return(3, 4)  # result = 7\nprint(result * 2)           # prints 14\nprint(add_return(10, 5))    # prints 15\n\n# Returning a string\ndef full_name(first, last):\n    return first + \" \" + last\n\nname = full_name(\"Ada\", \"Lovelace\")\nprint(\"Hello, \" + name)"
+      },
+      "activities": [
+        {
+          "type": "multiple_choice",
+          "id": "mc3a",
+          "question": "What does the 'return' keyword do in a function?",
+          "options": [
+            "Prints a value to the screen",
+            "Ends the program",
+            "Sends a value back to where the function was called",
+            "Defines a new variable"
+          ],
+          "answer": "Sends a value back to where the function was called",
+          "explanation": "return sends a value out of the function so it can be stored, used in expressions, or passed to other functions — unlike print() which just displays it."
+        },
+        {
+          "type": "multiple_choice",
+          "id": "mc3b",
+          "question": "What will this code print?\n\ndef double(n):\n    return n * 2\n\nprint(double(5))",
+          "options": ["5", "double(5)", "10", "n * 2"],
+          "answer": "10",
+          "explanation": "double(5) calls the function with n=5. It returns 5 * 2 = 10. print() then displays 10."
+        },
+        {
+          "type": "fill_blank",
+          "id": "fb3a",
+          "instruction": "Complete the function so it <strong>returns</strong> the square of a number (n × n).",
+          "code_prefix": "def square(n):\n    ",
+          "code_suffix": "\n\nprint(square(4))  # should print 16",
+          "answer": "return n * n",
+          "hint": "Use the return keyword, then multiply n by itself."
+        },
+        {
+          "type": "code_runner",
+          "id": "cr3a",
+          "instruction": "Write a function called <code>celsius_to_fahrenheit</code> that takes a Celsius temperature and <strong>returns</strong> the Fahrenheit equivalent. Formula: <code>F = (C × 9/5) + 32</code>. The output should print <code>98.6</code>.",
+          "starter_code": "def celsius_to_fahrenheit(c):\n    # Your code here\n    pass\n\nprint(celsius_to_fahrenheit(37))",
+          "test_cases": [
+            { "inputs": [], "expected_output": "98.6" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unit4",
+      "title": "Scope & Real-World Functions",
+      "lessonContent": {
+        "heading": "🌍 Scope & Putting It All Together",
+        "body": "<strong>Scope</strong> refers to where a variable can be accessed in your code.<br><br><strong>Local scope</strong>: variables created <em>inside</em> a function only exist inside that function.<br><strong>Global scope</strong>: variables created <em>outside</em> functions can be accessed anywhere.<br><br>This is why you can't use a variable defined inside a function from outside it — it doesn't exist there!<br><br>Now let's put everything together to write real, useful functions that combine parameters, logic, and return values.",
+        "codeExample": "# Scope example\nx = 10  # global variable\n\ndef my_function():\n    y = 5   # local variable — only exists here\n    print(x)  # can access global x ✅\n    print(y)  # works fine inside ✅\n\nmy_function()\nprint(x)  # ✅ works\n# print(y)  # ❌ NameError — y doesn't exist here!\n\n# Real-world example: grade calculator\ndef get_grade(score):\n    if score >= 90:\n        return \"A\"\n    elif score >= 80:\n        return \"B\"\n    elif score >= 70:\n        return \"C\"\n    elif score >= 60:\n        return \"D\"\n    else:\n        return \"F\"\n\nprint(get_grade(85))   # B\nprint(get_grade(72))   # C\nprint(get_grade(55))   # F"
+      },
+      "activities": [
+        {
+          "type": "multiple_choice",
+          "id": "mc4a",
+          "question": "A variable created inside a function is called a _____ variable.",
+          "options": ["global", "local", "public", "shared"],
+          "answer": "local",
+          "explanation": "Variables created inside a function have local scope — they only exist while that function is running, and cannot be accessed from outside."
+        },
+        {
+          "type": "fill_blank",
+          "id": "fb4a",
+          "instruction": "Complete the function to return <code>\"Pass\"</code> if score is 50 or above, otherwise return <code>\"Fail\"</code>.",
+          "code_prefix": "def check_pass(score):\n    if score >= 50:\n        return \"Pass\"\n    ",
+          "code_suffix": "\n\nprint(check_pass(45))  # Fail\nprint(check_pass(72))  # Pass",
+          "answer": "return \"Fail\"",
+          "hint": "Use else (or just return) to handle the failing case."
+        },
+        {
+          "type": "code_runner",
+          "id": "cr4a",
+          "instruction": "Write a function called <code>bmi</code> that takes <code>weight_kg</code> and <code>height_m</code> as parameters and returns the BMI rounded to 1 decimal place. Formula: <code>BMI = weight / (height * height)</code>. Use Python's <code>round(value, 1)</code> function.",
+          "starter_code": "def bmi(weight_kg, height_m):\n    # Calculate and return BMI rounded to 1 decimal\n    pass\n\nprint(bmi(70, 1.75))  # should print 22.9",
+          "test_cases": [
+            { "inputs": [], "expected_output": "22.9" }
+          ]
+        },
+        {
+          "type": "code_runner",
+          "id": "cr4b",
+          "instruction": "🏆 <strong>Final Challenge!</strong> Write a function called <code>fizzbuzz</code> that takes a number and returns: <code>\"FizzBuzz\"</code> if divisible by both 3 and 5, <code>\"Fizz\"</code> if divisible by 3, <code>\"Buzz\"</code> if divisible by 5, or the number as a string otherwise. Call it with 15, 9, 10, and 7 — each on a new line.",
+          "starter_code": "def fizzbuzz(n):\n    # Your logic here\n    pass\n\nprint(fizzbuzz(15))\nprint(fizzbuzz(9))\nprint(fizzbuzz(10))\nprint(fizzbuzz(7))",
+          "test_cases": [
+            { "inputs": [], "expected_output": "FizzBuzz\nFizz\nBuzz\n7" }
+          ]
+        }
+      ]
+    }
+  ]
+}

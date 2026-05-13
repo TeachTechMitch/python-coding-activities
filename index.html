@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python Functions — Interactive Lesson</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
+</head>
+<body>
+
+  <!-- BACKGROUND GRID -->
+  <div class="bg-grid"></div>
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen" class="screen active">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="logo-mark">
+          <span class="logo-bracket">{</span>
+          <span class="logo-fn">fn</span>
+          <span class="logo-bracket">}</span>
+        </div>
+        <h1>Python Functions</h1>
+        <p class="subtitle">From Zero to Hero — Year 9–10 Digital Technology</p>
+      </div>
+
+      <div class="login-topics">
+        <span class="topic-pill">📦 What is a Function?</span>
+        <span class="topic-pill">🎯 Parameters & Arguments</span>
+        <span class="topic-pill">↩️ Return Values</span>
+        <span class="topic-pill">🌍 Scope & Challenges</span>
+      </div>
+
+      <div class="login-form">
+        <label for="student-id">Enter your Student ID to begin</label>
+        <div class="input-row">
+          <input type="text" id="student-id" placeholder="e.g. 12345" maxlength="10" autocomplete="off" />
+          <button id="start-btn">Start <span class="arrow">→</span></button>
+        </div>
+        <p id="login-error" class="error-msg hidden"></p>
+      </div>
+
+      <p class="login-footer">🐍 Powered by Pyodide — runs real Python in your browser</p>
+    </div>
+  </div>
+
+  <!-- MAIN LESSON SCREEN -->
+  <div id="lesson-screen" class="screen hidden">
+
+    <!-- TOP BAR -->
+    <div id="topbar">
+      <div class="topbar-left">
+        <div class="topbar-logo">{fn}</div>
+        <span id="student-label"></span>
+      </div>
+      <div class="topbar-center">
+        <div id="unit-tabs"></div>
+      </div>
+      <div class="topbar-right">
+        <div id="pyodide-status" class="py-status loading">
+          <span class="py-dot"></span>
+          <span class="py-text">Loading Python…</span>
+        </div>
+        <div id="score-chip">
+          <span id="score-count">0</span>/<span id="score-total">0</span> correct
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSON BODY -->
+    <div id="lesson-body">
+
+      <!-- LEFT: Lesson Content -->
+      <aside id="lesson-panel">
+        <div id="lesson-content-inner"></div>
+      </aside>
+
+      <!-- RIGHT: Activities -->
+      <main id="activity-panel">
+        <div id="activity-inner">
+          <div id="activity-list"></div>
+        </div>
+        <div id="activity-footer">
+          <button id="prev-unit-btn" class="nav-btn secondary" disabled>← Previous Unit</button>
+          <div id="unit-progress-wrap">
+            <div id="unit-progress-bar"></div>
+          </div>
+          <button id="next-unit-btn" class="nav-btn primary">Next Unit →</button>
+          <button id="submit-all-btn" class="nav-btn submit hidden">✅ Submit &amp; Finish</button>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- COMPLETION SCREEN -->
+  <div id="complete-screen" class="screen hidden">
+    <div class="complete-card">
+      <div class="complete-trophy">🏆</div>
+      <h2>Lesson Complete!</h2>
+      <p id="complete-name"></p>
+      <div id="complete-stats"></div>
+      <p id="save-status" class="save-status"></p>
+      <div class="complete-actions">
+        <button id="review-btn" class="nav-btn secondary">← Review Answers</button>
+        <button id="retry-btn" class="nav-btn primary">Start Again</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
