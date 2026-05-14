@@ -220,19 +220,37 @@ function renderMC(act, card) {
 }
 
 // ── Render Fill in Blank ───────────────────────────────
+// Renders the code block with the blank inline at the correct position,
+// respecting newlines so it looks like real Python code.
 function renderFill(act, card) {
   const saved = responses[act.id];
+
+  // Build the full code string with a placeholder marker where the blank goes
+  const MARKER = "___BLANK___";
+  const fullCode = act.code_prefix + MARKER + act.code_suffix;
+
+  // Split into lines, find which line has the blank
+  const lines = fullCode.split("\n");
+  const codeLines = lines.map((line, lineIdx) => {
+    if (!line.includes(MARKER)) {
+      return `<div class="fill-line">${syntaxHighlight(line)}</div>`;
+    }
+    // This line contains the blank — split around it
+    const parts = line.split(MARKER);
+    const before = syntaxHighlight(parts[0]);
+    const after  = syntaxHighlight(parts[1] || "");
+    return `<div class="fill-line">${before}<input type="text" class="fill-input" id="fill-${act.id}"
+      placeholder="???"
+      value="${saved ? escapeAttr(saved.answer) : ""}"
+      ${saved ? "disabled" : ""}
+      style="width:${Math.max(act.answer.length * 10 + 20, 80)}px"
+    />${after}</div>`;
+  }).join("");
+
   card.innerHTML = `
     <div class="activity-badge fill">◇ Fill in the Blank</div>
     <div class="activity-q">${act.instruction}</div>
-    <div class="fill-wrap">
-      <span>${syntaxHighlight(act.code_prefix)}</span>
-      <input type="text" class="fill-input" id="fill-${act.id}"
-             placeholder="your answer here"
-             value="${saved ? escapeAttr(saved.answer) : ""}"
-             ${saved ? "disabled" : ""} />
-      <span>${syntaxHighlight(act.code_suffix)}</span>
-    </div>
+    <div class="fill-code-block">${codeLines}</div>
     <div class="hint-text">💡 ${act.hint}</div>
     ${!saved ? `<button class="run-btn" id="check-${act.id}">✔ Check Answer</button>` : ""}
     ${saved ? `<div class="feedback ${saved.correct ? "correct" : "wrong"}">
