@@ -124,7 +124,7 @@ function renderUnit() {
     <div class="lesson-body-text">${lc.body}</div>
     <div class="lesson-code-block">
       <div class="lesson-code-label">📄 Example Code</div>
-      <pre>${syntaxHighlight(escapeHtml(lc.codeExample))}</pre>
+      <pre>${syntaxHighlight(lc.codeExample)}</pre>
     </div>
   `;
 
@@ -475,16 +475,25 @@ function escapeAttr(str = "") {
   return str.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
 
-// Very lightweight syntax highlighter for lesson code examples
-function syntaxHighlight(html) {
-  return html
-    // Comments (# ...)
-    .replace(/(#[^\n<]*)/g, '<span class="comment">$1</span>')
-    // Keywords
-    .replace(/\b(def|return|if|elif|else|for|while|in|and|or|not|import|from|class|pass|True|False|None|print|input|range|int|float|str|len|type|round)\b/g,
-      '<span class="keyword">$1</span>')
-    // Strings in double quotes (escaped HTML)
-    .replace(/(&quot;[^&]*&quot;)/g, '<span class="string">$1</span>');
+// Syntax highlighter — escapes HTML first, then wraps tokens in spans
+function syntaxHighlight(code) {
+  // Step 1: escape HTML special chars
+  let s = code
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  // Step 2: highlight strings
+  s = s.replace(/(\"[^\"]*\"|\'[^\']*\')/g, '<span class="string">$1</span>');
+
+  // Step 3: highlight comments
+  s = s.replace(/(#[^\n]*)/g, '<span class="comment">$1</span>');
+
+  // Step 4: highlight keywords
+  s = s.replace(/\b(def|return|if|elif|else|for|while|in|and|or|not|import|from|class|pass|True|False|None|print|input|range|int|float|str|len|type|round)\b/g,
+    '<span class="keyword">$1</span>');
+
+  return s;
 }
 
 // ── Boot ───────────────────────────────────────────────
