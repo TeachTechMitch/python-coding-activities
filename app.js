@@ -475,25 +475,51 @@ function escapeAttr(str = "") {
   return str.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
 
-// Syntax highlighter — escapes HTML first, then wraps tokens in spans
+// Syntax highlighter — proper tokeniser to avoid regex conflicts
 function syntaxHighlight(code) {
-  // Step 1: escape HTML special chars
-  let s = code
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-
-  // Step 2: highlight strings
-  s = s.replace(/(\"[^\"]*\"|\'[^\']*\')/g, '<span class="string">$1</span>');
-
-  // Step 3: highlight comments
-  s = s.replace(/(#[^\n]*)/g, '<span class="comment">$1</span>');
-
-  // Step 4: highlight keywords
-  s = s.replace(/\b(def|return|if|elif|else|for|while|in|and|or|not|import|from|class|pass|True|False|None|print|input|range|int|float|str|len|type|round)\b/g,
-    '<span class="keyword">$1</span>');
-
-  return s;
+  const KEYWORDS = new Set([
+    'def','return','if','elif','else','for','while','in','and','or','not',
+    'import','from','class','pass','True','False','None','print','input',
+    'range','int','float','str','len','type','round'
+  ]);
+  function esc(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  return code.split('\n').map(line => {
+    const commentIdx = line.indexOf('#');
+    let codePart = line, commentPart = '';
+    if (commentIdx !== -1) {
+      const before = line.slice(0, commentIdx);
+      const quotes = (before.match(/["\']/g)||[]).length;
+      if (quotes % 2 === 0) {
+        codePart = line.slice(0, commentIdx);
+        commentPart = line.slice(commentIdx);
+      }
+    }
+    let result = '', i = 0;
+    while (i < codePart.length) {
+      const ch = codePart[i];
+      if (ch === '"' || ch === "\'") {
+        let j = i + 1;
+        while (j < codePart.length && codePart[j] !== ch) j++;
+        j++;
+        result += '<span class="string">' + esc(codePart.slice(i, j)) + '</span>';
+        i = j; continue;
+      }
+      if (/[a-zA-Z_]/.test(ch)) {
+        let j = i;
+        while (j < codePart.length && /[a-zA-Z0-9_]/.test(codePart[j])) j++;
+        const word = codePart.slice(i, j);
+        result += KEYWORDS.has(word)
+          ? '<span class="keyword">' + esc(word) + '</span>'
+          : esc(word);
+        i = j; continue;
+      }
+      result += esc(ch); i++;
+    }
+    if (commentPart) result += '<span class="comment">' + esc(commentPart) + '</span>';
+    return result;
+  }).join('\n');
 }
 
 // ── Boot ───────────────────────────────────────────────
