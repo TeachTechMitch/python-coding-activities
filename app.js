@@ -226,12 +226,12 @@ function renderFill(act, card) {
     <div class="activity-badge fill">◇ Fill in the Blank</div>
     <div class="activity-q">${act.instruction}</div>
     <div class="fill-wrap">
-      <span>${syntaxHighlight(escapeHtml(act.code_prefix))}</span>
+      <span>${syntaxHighlight(act.code_prefix)}</span>
       <input type="text" class="fill-input" id="fill-${act.id}"
              placeholder="your answer here"
              value="${saved ? escapeAttr(saved.answer) : ""}"
              ${saved ? "disabled" : ""} />
-      <span>${syntaxHighlight(escapeHtml(act.code_suffix))}</span>
+      <span>${syntaxHighlight(act.code_suffix)}</span>
     </div>
     <div class="hint-text">💡 ${act.hint}</div>
     ${!saved ? `<button class="run-btn" id="check-${act.id}">✔ Check Answer</button>` : ""}
